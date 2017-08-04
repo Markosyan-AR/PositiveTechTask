@@ -1,0 +1,30 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "buildDev": "webpack --watch -d --display-error-details",
+    "build": "webpack -p --display-error-details"
+  },
+  "author": "amarkosyan",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jquery": "^2.0.41",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.1.2",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.16.1",
+    "typescript": "^2.2.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1"
+  }
+}
