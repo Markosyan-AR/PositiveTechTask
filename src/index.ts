@@ -1,4 +1,4 @@
-const selectedCart = [
+const selectedCart: ICartItem[] = [
     { price: 20 },
     { price: 45 },
     { price: 67 },
@@ -7,14 +7,8 @@ const selectedCart = [
 
 getRates()
     .done((rates: CurrencyRate[]) => {
-        let summ = selectedCart.reduce((prev, curr) => prev + curr.price, 0);
-
-        let result = rates.reduce((obj, currency) => {
-            obj[currency.name] = summ / currency.rate;
-            return obj;
-        }, {} as { [key: string]: number });
-
-        writeResult(result);
+        let totalCost = calculateTotalCost(rates, selectedCart);
+        writeResult(totalCost);
     });
 
 function getRates() {
@@ -25,10 +19,23 @@ function getRates() {
         .then((rawData: ICurrencyData) => rawData.query.results.rate.map(x => new CurrencyRate(x)));
 }
 
+function calculateTotalCost(rates: CurrencyRate[], cart: ICartItem[]) {
+    let orderSumm = cart.reduce((prev, curr) => prev + curr.price, 0);
+
+    return rates.reduce((obj, currency) => {
+        obj[currency.name] = orderSumm / currency.rate;
+        return obj;
+    }, {} as { [key: string]: number });
+}
+
 function writeResult(data: { [key: string]: number }) {
     for (let key in data) {
         $('ul').append(`<li>Currency: ${key}, Summ: ${data[key].toFixed(2)}</li>`);
     }
+}
+
+interface ICartItem {
+    price: number;
 }
 
 interface ICurrencyData {
